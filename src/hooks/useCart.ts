@@ -1,78 +1,78 @@
-// Custom hook for cart state management
+'use client';
 
-import { useState, useCallback } from 'react';
-import { CartItem, MenuItem } from '@/types';
+// Custom hook for cart state management - now using Zustand store
+
+import { useCartStore, cartSelectors, useCartHydration } from '@/stores';
+import { MenuItem } from '@/types';
 
 export const useCart = () => {
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const store = useCartStore();
+  const isHydrated = useCartHydration();
+  
+  // Use selectors for optimized re-renders
+  const cartItems = useCartStore(cartSelectors.items);
+  const total = useCartStore(cartSelectors.total);
+  const itemCount = useCartStore(cartSelectors.itemCount);
+  const isOpen = useCartStore(cartSelectors.isOpen);
+  const isEmpty = useCartStore(cartSelectors.isEmpty);
 
-  const addToCart = useCallback((menuItem: MenuItem, quantity: number = 1) => {
-    setCartItems(prevItems => {
-      const existingItem = prevItems.find(item => item.itemId === menuItem.id);
-      
-      if (existingItem) {
-        return prevItems.map(item =>
-          item.itemId === menuItem.id
-            ? { ...item, quantity: item.quantity + quantity }
-            : item
-        );
-      } else {
-        const newCartItem: CartItem = {
-          itemId: menuItem.id,
-          quantity,
-          name: menuItem.name,
-          price: menuItem.price,
-          image: menuItem.image
-        };
-        return [...prevItems, newCartItem];
-      }
-    });
-  }, []);
+  // Wrapper functions for backward compatibility
+  const addToCart = (menuItem: MenuItem, quantity: number = 1) => {
+    store.addItem(menuItem, quantity);
+  };
 
-  const removeFromCart = useCallback((itemId: string) => {
-    setCartItems(prevItems => prevItems.filter(item => item.itemId !== itemId));
-  }, []);
+  const removeFromCart = (itemId: string) => {
+    store.removeItem(itemId);
+  };
 
-  const updateQuantity = useCallback((itemId: string, quantity: number) => {
-    if (quantity <= 0) {
-      removeFromCart(itemId);
-      return;
-    }
+  const updateQuantity = (itemId: string, quantity: number) => {
+    store.updateQuantity(itemId, quantity);
+  };
 
-    setCartItems(prevItems =>
-      prevItems.map(item =>
-        item.itemId === itemId
-          ? { ...item, quantity }
-          : item
-      )
-    );
-  }, [removeFromCart]);
+  const clearCart = () => {
+    store.clearCart();
+  };
 
-  const clearCart = useCallback(() => {
-    setCartItems([]);
-  }, []);
+  const getCartTotal = () => {
+    return store.total;
+  };
 
-  const getCartTotal = useCallback(() => {
-    return cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
-  }, [cartItems]);
+  const getCartItemCount = () => {
+    return store.itemCount;
+  };
 
-  const getCartItemCount = useCallback(() => {
-    return cartItems.reduce((count, item) => count + item.quantity, 0);
-  }, [cartItems]);
+  const getItemQuantity = (itemId: string) => {
+    return store.getItemQuantity(itemId);
+  };
 
-  const getItemQuantity = useCallback((itemId: string) => {
-    const item = cartItems.find(item => item.itemId === itemId);
-    return item ? item.quantity : 0;
-  }, [cartItems]);
+  const toggleCart = () => {
+    store.toggleCart();
+  };
+
+  const openCart = () => {
+    store.openCart();
+  };
+
+  const closeCart = () => {
+    store.closeCart();
+  };
 
   return {
-    cartItems,
+    cartItems: isHydrated ? cartItems : [],
     addToCart,
     removeFromCart,
     updateQuantity,
     clearCart,
     getCartTotal,
     getCartItemCount,
-    getItemQuantity
+    getItemQuantity,
+    toggleCart,
+    openCart,
+    closeCart,
+    total: isHydrated ? total : 0,
+    itemCount: isHydrated ? itemCount : 0,
+    isOpen: isHydrated ? isOpen : false,
+    isEmpty: isHydrated ? isEmpty : true,
+    isHydrated
   };
 };
