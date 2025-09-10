@@ -3,6 +3,7 @@
 // Featured items section for the home page
 
 import React from 'react';
+import Link from 'next/link';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import { useMenu } from '@/hooks/useMenu';
@@ -32,9 +33,11 @@ const FeaturedItems: React.FC = () => {
     <div>
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-3xl font-bold text-gray-800">Featured Items</h2>
-        <Button variant="outline">
-          View All Menu →
-        </Button>
+        <Link href="/menu">
+          <Button variant="outline">
+            View All Menu →
+          </Button>
+        </Link>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

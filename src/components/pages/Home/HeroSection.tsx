@@ -1,6 +1,7 @@
 // Hero section component for the home page
 
 import React from 'react';
+import Link from 'next/link';
 import Button from '@/components/ui/Button';
 
 const HeroSection: React.FC = () => {
@@ -28,9 +29,11 @@ const HeroSection: React.FC = () => {
             <p className="text-xl text-white mb-6 max-w-md">
               Experience the finest flavors from our kitchen to your doorstep
             </p>
-            <Button size="lg" className="bg-orange-500 hover:bg-orange-600">
-              Order Now →
-            </Button>
+            <Link href="/menu">
+              <Button size="lg" className="bg-orange-500 hover:bg-orange-600">
+                Order Now →
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

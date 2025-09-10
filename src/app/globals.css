@@ -1,8 +1,15 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
+  --background: #fefcf8; /* Very light cream background */
   --foreground: #171717;
+  
+  /* Food-themed custom colors */
+  --orange-warm: 24.6 95% 53.1%;
+  --orange-light: 33 100% 96%;
+  --red-tomato: 15 86.1% 53.9%;
+  --green-fresh: 138 76.5% 36.3%;
+  --cream-soft: 45 100% 97%;
 }
 
 @theme inline {
@@ -15,6 +22,39 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+}
+
+/* Custom utility classes for the new colors */
+.bg-orange-warm {
+  background-color: hsl(var(--orange-warm));
+}
+
+.bg-orange-light {
+  background-color: hsl(var(--orange-light));
+}
+
+.bg-red-tomato {
+  background-color: hsl(var(--red-tomato));
+}
+
+.bg-green-fresh {
+  background-color: hsl(var(--green-fresh));
+}
+
+.bg-cream-soft {
+  background-color: hsl(var(--cream-soft));
+}
+
+.text-orange-warm {
+  color: hsl(var(--orange-warm));
+}
+
+.text-red-tomato {
+  color: hsl(var(--red-tomato));
+}
+
+.text-green-fresh {
+  color: hsl(var(--green-fresh));
 }
 
 /* Custom scrollbar */
