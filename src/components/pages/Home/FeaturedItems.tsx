@@ -40,16 +40,8 @@ const FeaturedItems: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {featuredItems.map((item) => (
           <Card key={item.id} hover className="overflow-hidden">
-            <div className="aspect-w-16 aspect-h-12 mb-4">
-              <img
-                src={item.image}
-                alt={item.name}
-                className="w-full h-48 object-cover rounded-lg"
-                onError={(e) => {
-                  // Fallback image if the original fails to load
-                  e.currentTarget.src = 'https://via.placeholder.com/300x200?text=Food+Image';
-                }}
-              />
+            <div className="w-full h-48 bg-gray-200 rounded-lg flex items-center justify-center mb-4">
+              <div className="text-gray-400 text-4xl">🍽️</div>
             </div>
             
             <div className="mb-4">

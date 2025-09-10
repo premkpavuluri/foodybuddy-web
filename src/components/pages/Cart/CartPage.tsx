@@ -44,14 +44,9 @@ const CartPage: React.FC = () => {
             <div className="space-y-4">
               {cartItems.map((item) => (
                 <div key={item.itemId} className="flex items-center space-x-4 p-4 border rounded-lg">
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    className="w-16 h-16 object-cover rounded-lg"
-                    onError={(e) => {
-                      e.currentTarget.src = 'https://via.placeholder.com/64x64?text=Food';
-                    }}
-                  />
+                  <div className="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center">
+                    <div className="text-gray-400 text-xl">🍽️</div>
+                  </div>
                   
                   <div className="flex-1">
                     <h3 className="font-semibold text-gray-800">{item.name}</h3>
