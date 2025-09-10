@@ -1,36 +1,85 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FoodyBuddy Web Frontend
+
+A Next.js frontend application for the FoodyBuddy microservices application.
+
+## Features
+
+- Modern React/Next.js application with TypeScript
+- Tailwind CSS for styling
+- Shopping cart functionality
+- Order management
+- Responsive design
+
+## Prerequisites
+
+- Node.js 18+
+- npm or yarn
 
 ## Getting Started
 
-First, run the development server:
+### Development
 
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+2. Run the development server:
+   ```bash
+   npm run dev
+   ```
+
+3. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+### Production
+
+1. Build the application:
+   ```bash
+   npm run build
+   ```
+
+2. Start the production server:
+   ```bash
+   npm start
+   ```
+
+## Docker
+
+### Build the Docker image:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+docker build -t foodybuddy-web .
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Run the container:
+```bash
+docker run -p 3000:3000 foodybuddy-web
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## API Integration
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This frontend is designed to communicate with the FoodyBuddy API Gateway service. In a full microservices setup:
 
-## Learn More
+- Menu items would be fetched from the API Gateway
+- Orders would be placed through the API Gateway
+- Payment processing would be handled by the backend services
 
-To learn more about Next.js, take a look at the following resources:
+Currently, the application uses mock data for demonstration purposes.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+src/
+├── app/
+│   ├── globals.css      # Global styles
+│   ├── layout.tsx       # Root layout component
+│   └── page.tsx         # Home page component
+└── ...
+```
 
-## Deploy on Vercel
+## Technologies Used
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Next.js 15
+- React 19
+- TypeScript
+- Tailwind CSS
+- ESLint
