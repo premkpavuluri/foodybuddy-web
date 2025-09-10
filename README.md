@@ -1,85 +1,105 @@
-# FoodyBuddy Web Frontend
+# Foody Buddy Web Application
 
-A Next.js frontend application for the FoodyBuddy microservices application.
+A modern food delivery web application built with Next.js 15, TypeScript, and Tailwind CSS.
 
 ## Features
 
-- Modern React/Next.js application with TypeScript
-- Tailwind CSS for styling
-- Shopping cart functionality
-- Order management
-- Responsive design
-
-## Prerequisites
-
-- Node.js 18+
-- npm or yarn
-
-## Getting Started
-
-### Development
-
-1. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-2. Run the development server:
-   ```bash
-   npm run dev
-   ```
-
-3. Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-### Production
-
-1. Build the application:
-   ```bash
-   npm run build
-   ```
-
-2. Start the production server:
-   ```bash
-   npm start
-   ```
-
-## Docker
-
-### Build the Docker image:
-```bash
-docker build -t foodybuddy-web .
-```
-
-### Run the container:
-```bash
-docker run -p 3000:3000 foodybuddy-web
-```
-
-## API Integration
-
-This frontend is designed to communicate with the FoodyBuddy API Gateway service. In a full microservices setup:
-
-- Menu items would be fetched from the API Gateway
-- Orders would be placed through the API Gateway
-- Payment processing would be handled by the backend services
-
-Currently, the application uses mock data for demonstration purposes.
+- **Home Page**: Hero section with feature cards and featured menu items
+- **Menu Page**: Searchable menu with category filters and food item grid
+- **Cart Page**: Shopping cart with item management
+- **Responsive Design**: Mobile-first approach with modern UI/UX
+- **API Integration**: Simulated API calls (ready for backend integration)
 
 ## Project Structure
 
 ```
 src/
-├── app/
-│   ├── globals.css      # Global styles
-│   ├── layout.tsx       # Root layout component
-│   └── page.tsx         # Home page component
-└── ...
+├── app/                    # Next.js app router pages
+│   ├── page.tsx           # Home page
+│   ├── menu/page.tsx      # Menu page
+│   ├── cart/page.tsx      # Cart page
+│   └── layout.tsx         # Root layout
+├── components/
+│   ├── ui/                # Reusable UI components
+│   │   ├── Button.tsx
+│   │   ├── Card.tsx
+│   │   ├── Input.tsx
+│   │   └── LoadingSpinner.tsx
+│   ├── layout/            # Layout components
+│   │   ├── Layout.tsx
+│   │   ├── Sidebar.tsx
+│   │   └── Header.tsx
+│   └── pages/             # Page-specific components
+│       ├── Home/
+│       ├── Menu/
+│       └── Cart/
+├── hooks/                 # Custom React hooks
+│   ├── useMenu.ts
+│   └── useCart.ts
+├── lib/
+│   └── api/              # API client and services
+│       └── client.ts
+├── types/                # TypeScript type definitions
+│   └── index.ts
+└── constants/            # Application constants
+    └── index.ts
 ```
 
-## Technologies Used
+## Getting Started
 
-- Next.js 15
-- React 19
-- TypeScript
-- Tailwind CSS
-- ESLint
+1. Install dependencies:
+   ```bash
+   yarn install
+   ```
+
+2. Run the development server:
+   ```bash
+   yarn dev
+   ```
+
+3. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## Technology Stack
+
+- **Framework**: Next.js 15 with App Router
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **State Management**: React Hooks (useState, useEffect, custom hooks)
+- **API**: Simulated API calls (ready for backend integration)
+
+## Component Architecture
+
+The application follows a component-based architecture with:
+
+- **UI Components**: Reusable, styled components (Button, Card, Input, etc.)
+- **Layout Components**: Page structure and navigation
+- **Page Components**: Specific page implementations
+- **Custom Hooks**: Business logic and state management
+- **API Layer**: Centralized API calls and data fetching
+
+## API Integration
+
+Currently uses simulated API calls with mock data. The API layer is structured to easily integrate with the backend services:
+
+- `menuApi`: Menu items and search functionality
+- `orderApi`: Order creation and management
+- `userApi`: User profile and authentication
+
+## Future Enhancements
+
+- [ ] User authentication and profiles
+- [ ] Order tracking and history
+- [ ] Payment integration
+- [ ] Real-time updates
+- [ ] Mobile app (React Native)
+- [ ] Admin dashboard
+
+## Development
+
+The application is built with modern React patterns and follows Next.js best practices:
+
+- Server and Client Components separation
+- TypeScript for type safety
+- Tailwind CSS for styling
+- Custom hooks for state management
+- Component composition and reusability
