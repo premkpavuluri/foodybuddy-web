@@ -3,7 +3,7 @@
 // Custom hook for order-related state and operations
 
 import { useOrderStore, orderSelectors } from '@/stores';
-import { CartItem } from '@/types';
+import { CartItem, OrderStatus } from '@/types';
 
 export const useOrder = () => {
   const store = useOrderStore();
@@ -17,11 +17,11 @@ export const useOrder = () => {
   const hasOrders = useOrderStore(orderSelectors.hasOrders);
 
   // Wrapper functions
-  const createOrder = async (items: CartItem[], total: number) => {
-    return await store.createOrder(items, total);
+  const createOrder = async (items: CartItem[], total: number, paymentDetails?: Record<string, unknown>) => {
+    return await store.createOrder(items, total, paymentDetails);
   };
 
-  const updateOrderStatus = (orderId: string, status: any) => {
+  const updateOrderStatus = (orderId: string, status: OrderStatus) => {
     store.updateOrderStatus(orderId, status);
   };
 
@@ -45,7 +45,7 @@ export const useOrder = () => {
     store.clearCurrentOrder();
   };
 
-  const getOrdersByStatus = (status: any) => {
+  const getOrdersByStatus = (status: OrderStatus) => {
     return orders.filter(order => order.status === status);
   };
 

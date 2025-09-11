@@ -19,11 +19,11 @@ export const useOrderStore = create<OrderStore>()(
       orderHistory: [],
 
       // Actions
-      createOrder: async (items: CartItem[], total: number) => {
+      createOrder: async (items: CartItem[], total: number, paymentDetails?: Record<string, unknown>) => {
         set({ loading: true, error: null }, false, 'order/createOrder-start');
 
         try {
-          const response = await orderApi.createOrder(items);
+          const response = await orderApi.createOrder(items, paymentDetails);
           
           if (response.success && response.data) {
             const newOrder = response.data;

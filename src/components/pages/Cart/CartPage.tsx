@@ -20,7 +20,7 @@ const CartPage: React.FC = () => {
           <div className="text-6xl mb-4">🛒</div>
           <h2 className="text-2xl font-bold text-gray-800 mb-2">Your cart is empty</h2>
           <p className="text-gray-600 mb-6 text-center">
-            Looks like you haven't added any delicious items to your cart yet
+            Looks like you haven&apos;t added any delicious items to your cart yet
           </p>
           <Link href="/menu">
             <Button size="lg" className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600">
@@ -112,9 +112,11 @@ const CartPage: React.FC = () => {
             </div>
             
             <div className="space-y-3">
-              <Button className="w-full" size="lg">
-                Proceed to Checkout
-              </Button>
+              <Link href="/payment">
+                <Button className="w-full" size="lg">
+                  Proceed to Checkout
+                </Button>
+              </Link>
               <Button
                 variant="outline"
                 className="w-full"

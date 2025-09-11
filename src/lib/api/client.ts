@@ -2,7 +2,7 @@
 // Currently simulating API calls - will be updated with actual backend integration
 
 import { API_BASE_URL } from '@/constants';
-import { ApiResponse, PaginatedResponse, MenuItem, Order, CartItem, User } from '@/types';
+import { ApiResponse, PaginatedResponse, MenuItem, Order, OrderStatus, CartItem, User } from '@/types';
 
 // Mock data for simulation
 const mockMenuItems: MenuItem[] = [
@@ -141,36 +141,95 @@ export const menuApi = {
 
 // Order API functions
 export const orderApi = {
-  async createOrder(items: CartItem[]): Promise<ApiResponse<Order>> {
+  async createOrder(items: CartItem[], paymentDetails?: Record<string, unknown>): Promise<ApiResponse<Order>> {
     await simulateDelay();
     
     const total = items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     
-    const newOrder: Order = {
-      id: Date.now().toString(),
-      items,
-      total,
-      status: 'PENDING' as any,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString()
-    };
-    
-    return {
-      success: true,
-      data: newOrder,
-      message: 'Order created successfully'
-    };
+    // Call gateway checkout endpoint
+    try {
+      const response = await fetch('http://localhost:8080/api/gateway/checkout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          items: items.map(item => ({
+            itemId: item.itemId,
+            itemName: item.name,
+            quantity: item.quantity,
+            price: item.price
+          })),
+          totalAmount: total,
+          paymentMethod: paymentDetails?.method || 'CREDIT_CARD',
+          cardNumber: paymentDetails?.cardNumber || '',
+          cardHolderName: paymentDetails?.cardHolderName || '',
+          expiryDate: paymentDetails?.expiryDate || '',
+          cvv: paymentDetails?.cvv || '',
+          userId: 'user-123' // In real app, get from auth context
+        })
+      });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        const newOrder: Order = {
+          id: result.orderId,
+          items,
+          total: result.totalAmount,
+          status: result.orderStatus as OrderStatus,
+          createdAt: result.createdAt,
+          updatedAt: result.createdAt
+        };
+        
+        return {
+          success: true,
+          data: newOrder,
+          message: result.message
+        };
+      } else {
+        return {
+          success: false,
+          data: null,
+          message: result.message
+        };
+      }
+    } catch (error) {
+      return {
+        success: false,
+        data: null,
+        message: 'Failed to create order: ' + (error as Error).message
+      };
+    }
   },
 
   async getOrders(): Promise<ApiResponse<Order[]>> {
     await simulateDelay();
     
-    // Return empty array for now - in real app, this would fetch from backend
-    return {
-      success: true,
-      data: [],
-      message: 'Orders retrieved successfully'
-    };
+    try {
+      const response = await fetch('http://localhost:8080/api/gateway/orders');
+      const result = await response.json();
+      
+      if (result.orders) {
+        return {
+          success: true,
+          data: result.orders,
+          message: 'Orders fetched successfully'
+        };
+      } else {
+        return {
+          success: true,
+          data: [],
+          message: 'No orders found'
+        };
+      }
+    } catch (error) {
+      return {
+        success: false,
+        data: [],
+        message: 'Failed to fetch orders: ' + (error as Error).message
+      };
+    }
   },
 
   async getOrderById(id: string): Promise<ApiResponse<Order | null>> {
