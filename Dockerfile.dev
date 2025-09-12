@@ -1,0 +1,23 @@
+# Development Dockerfile for Web Frontend
+FROM node:18-alpine
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy package files
+COPY package.json yarn.lock ./
+
+# Install all dependencies
+RUN yarn install --frozen-lockfile
+
+# Copy the rest of the application code
+COPY . .
+
+# Expose the port the app runs on
+EXPOSE 3000
+
+# Set environment variable for development
+ENV NODE_ENV=development
+
+# Start the application in development mode
+CMD ["yarn", "dev"]
