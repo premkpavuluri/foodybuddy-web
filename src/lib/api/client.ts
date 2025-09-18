@@ -148,7 +148,7 @@ export const orderApi = {
     
     // Call gateway checkout endpoint
     try {
-      const response = await fetch('http://localhost:8080/api/gateway/checkout', {
+      const response = await fetch(`${API_BASE_URL}/api/gateway/checkout`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -207,7 +207,7 @@ export const orderApi = {
     await simulateDelay();
     
     try {
-      const response = await fetch('http://localhost:8080/api/gateway/orders');
+      const response = await fetch(`${API_BASE_URL}/api/gateway/orders`);
       const result = await response.json();
       
       if (result.orders) {
