@@ -5,10 +5,10 @@ import Layout from '@/components/layout/Layout';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
-import { Order } from '@/types';
+import { GatewayOrder } from '@/types';
 
 export default function Orders() {
-  const [orders, setOrders] = useState<Order[]>([]);
+  const [orders, setOrders] = useState<GatewayOrder[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -19,11 +19,13 @@ export default function Orders() {
   const fetchOrders = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:8080/api/gateway/orders');
+      const response = await fetch('/api/orders');
       const data = await response.json();
       
-      if (data.orders) {
-        setOrders(data.orders);
+      if (data.success && data.data) {
+        setOrders(data.data);
+      } else {
+        setOrders([]);
       }
     } catch (err) {
       setError('Failed to fetch orders');
@@ -135,7 +137,7 @@ export default function Orders() {
         </div>
         
         <div className="space-y-6">
-          {orders.map((order: any) => (
+          {orders.map((order: GatewayOrder) => (
             <Card key={order.orderId}>
               <div className="flex justify-between items-start mb-4">
                 <div>

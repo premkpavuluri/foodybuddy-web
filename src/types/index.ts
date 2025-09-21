@@ -90,3 +90,59 @@ export interface PaginatedResponse<T> {
   hasNext: boolean;
   hasPrev: boolean;
 }
+
+// Gateway Response Types
+export interface GatewayOrder {
+  orderId: string;
+  paymentId: string;
+  transactionId: string;
+  status: string;
+  totalAmount: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface GatewayOrdersResponse {
+  orders: GatewayOrder[];
+  count: number;
+}
+
+export interface GatewayCheckoutResponse {
+  success: boolean;
+  message: string;
+  orderId: string;
+  paymentId: string;
+  transactionId: string;
+  orderStatus: string;
+  totalAmount: number;
+  createdAt: string;
+}
+
+export interface GatewayOrderDetailsResponse {
+  orderId: string;
+  paymentId: string;
+  transactionId: string;
+  status: string;
+  totalAmount: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+// BFF Response Types
+export interface BFFOrdersResponse {
+  success: boolean;
+  data: GatewayOrder[];
+  message: string;
+}
+
+export interface BFFOrderDetailsResponse {
+  success: boolean;
+  data: GatewayOrderDetailsResponse;
+  message: string;
+}
+
+export interface BFFCheckoutResponse {
+  success: boolean;
+  data: GatewayCheckoutResponse;
+  message: string;
+}

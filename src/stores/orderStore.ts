@@ -5,7 +5,7 @@
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 import { OrderStore } from '@/types/store';
-import { Order, OrderStatus, CartItem } from '@/types';
+import { Order, OrderStatus, CartItem, GatewayOrder } from '@/types';
 import { orderApi } from '@/lib/api/client';
 
 export const useOrderStore = create<OrderStore>()(

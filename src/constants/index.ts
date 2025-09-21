@@ -1,6 +1,6 @@
 // Application constants
 
-export const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8080';
+// Note: API_BASE_URL removed - now using BFF pattern with relative API routes
 
 export const ROUTES = {
   HOME: '/',

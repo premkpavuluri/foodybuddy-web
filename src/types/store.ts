@@ -1,6 +1,6 @@
 // Store types and interfaces for Zustand state management
 
-import { MenuItem, CartItem, Order, User, OrderStatus, PaymentStatus } from './index';
+import { MenuItem, CartItem, Order, User, OrderStatus, PaymentStatus, GatewayOrder } from './index';
 
 // ==================== CART STORE TYPES ====================
 
@@ -54,11 +54,11 @@ export type MenuStore = MenuState & MenuActions;
 // ==================== ORDER STORE TYPES ====================
 
 export interface OrderState {
-  orders: Order[];
+  orders: GatewayOrder[];
   currentOrder: Order | null;
   loading: boolean;
   error: string | null;
-  orderHistory: Order[];
+  orderHistory: GatewayOrder[];
 }
 
 export interface OrderActions {

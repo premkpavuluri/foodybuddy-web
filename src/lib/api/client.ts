@@ -1,8 +1,21 @@
 // API client for making HTTP requests to the backend
-// Currently simulating API calls - will be updated with actual backend integration
+// Uses BFF (Backend for Frontend) pattern - calls internal API routes
 
-import { API_BASE_URL } from '@/constants';
-import { ApiResponse, PaginatedResponse, MenuItem, Order, OrderStatus, CartItem, User } from '@/types';
+import { 
+  ApiResponse, 
+  PaginatedResponse, 
+  MenuItem, 
+  Order, 
+  OrderStatus, 
+  CartItem, 
+  User,
+  BFFOrdersResponse,
+  BFFOrderDetailsResponse,
+  BFFCheckoutResponse,
+  GatewayOrder,
+  GatewayCheckoutResponse,
+  GatewayOrderDetailsResponse
+} from '@/types';
 
 // Mock data for simulation
 const mockMenuItems: MenuItem[] = [
@@ -65,27 +78,40 @@ const mockMenuItems: MenuItem[] = [
 // Simulate API delay
 const simulateDelay = (ms: number = 500) => new Promise(resolve => setTimeout(resolve, ms));
 
-// Generic request function
+// Generic request function for BFF API routes
 const makeRequest = async <T>(
   endpoint: string,
   options: RequestInit = {}
 ): Promise<ApiResponse<T>> => {
-  // Simulate network delay
-  await simulateDelay();
-  
   try {
-    // For now, we'll simulate responses based on endpoint
-    // In the future, this will make actual HTTP requests
-    console.log(`Simulating API call: ${options.method || 'GET'} ${endpoint}`);
+    console.log(`BFF API call: ${options.method || 'GET'} ${endpoint}`);
     
-    // Return success response (actual implementation will handle real API calls)
+    const response = await fetch(endpoint, {
+      ...options,
+      headers: {
+        'Content-Type': 'application/json',
+        ...options.headers,
+      },
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      return {
+        success: false,
+        data: null as T,
+        error: data.message || data.error || 'Request failed',
+        message: data.message || 'Request failed'
+      };
+    }
+
     return {
-      success: true,
-      data: null as T,
-      message: 'Simulated response'
+      success: data.success !== false,
+      data: data.data || data,
+      message: data.message || 'Request successful'
     };
   } catch (error) {
-    console.error('API request failed:', error);
+    console.error('BFF API request failed:', error);
     return {
       success: false,
       data: null as T,
@@ -94,160 +120,124 @@ const makeRequest = async <T>(
   }
 };
 
-// Menu API functions
+// Menu API functions - now using BFF API routes
 export const menuApi = {
   async getMenuItems(category?: string): Promise<ApiResponse<MenuItem[]>> {
-    await simulateDelay();
-    
-    let filteredItems = mockMenuItems;
+    const params = new URLSearchParams();
     if (category && category !== 'All') {
-      filteredItems = mockMenuItems.filter(item => item.category === category);
+      params.append('category', category);
     }
     
-    return {
-      success: true,
-      data: filteredItems,
-      message: 'Menu items retrieved successfully'
-    };
+    const endpoint = `/api/menu${params.toString() ? `?${params.toString()}` : ''}`;
+    return makeRequest<MenuItem[]>(endpoint);
   },
 
   async getMenuItemById(id: string): Promise<ApiResponse<MenuItem | null>> {
-    await simulateDelay();
-    
-    const item = mockMenuItems.find(item => item.id === id);
-    
-    return {
-      success: true,
-      data: item || null,
-      message: item ? 'Menu item found' : 'Menu item not found'
-    };
+    return makeRequest<MenuItem | null>(`/api/menu/${id}`);
   },
 
   async searchMenuItems(query: string): Promise<ApiResponse<MenuItem[]>> {
-    await simulateDelay();
+    const params = new URLSearchParams();
+    params.append('search', query);
     
-    const filteredItems = mockMenuItems.filter(item =>
-      item.name.toLowerCase().includes(query.toLowerCase()) ||
-      item.description.toLowerCase().includes(query.toLowerCase())
-    );
-    
-    return {
-      success: true,
-      data: filteredItems,
-      message: 'Search completed successfully'
-    };
+    return makeRequest<MenuItem[]>(`/api/menu?${params.toString()}`);
   }
 };
 
-// Order API functions
+// Order API functions - now using BFF API routes
 export const orderApi = {
   async createOrder(items: CartItem[], paymentDetails?: Record<string, unknown>): Promise<ApiResponse<Order>> {
-    await simulateDelay();
-    
     const total = items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     
-    // Call gateway checkout endpoint
-    try {
-      const response = await fetch(`${API_BASE_URL}/api/gateway/checkout`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          items: items.map(item => ({
-            itemId: item.itemId,
-            itemName: item.name,
-            quantity: item.quantity,
-            price: item.price
-          })),
-          totalAmount: total,
-          paymentMethod: paymentDetails?.method || 'CREDIT_CARD',
-          cardNumber: paymentDetails?.cardNumber || '',
-          cardHolderName: paymentDetails?.cardHolderName || '',
-          expiryDate: paymentDetails?.expiryDate || '',
-          cvv: paymentDetails?.cvv || '',
-          userId: 'user-123' // In real app, get from auth context
-        })
-      });
+    const requestBody = {
+      items: items.map(item => ({
+        itemId: item.itemId,
+        itemName: item.name,
+        quantity: item.quantity,
+        price: item.price
+      })),
+      totalAmount: total,
+      paymentMethod: paymentDetails?.method || 'CREDIT_CARD',
+      cardNumber: paymentDetails?.cardNumber || '',
+      cardHolderName: paymentDetails?.cardHolderName || '',
+      expiryDate: paymentDetails?.expiryDate || '',
+      cvv: paymentDetails?.cvv || '',
+      userId: 'user-123' // In real app, get from auth context
+    };
+
+    const response = await makeRequest<BFFCheckoutResponse>('/api/checkout', {
+      method: 'POST',
+      body: JSON.stringify(requestBody)
+    });
+
+    // Transform gateway response to Order format
+    if (response.success && response.data) {
+      const orderData = response.data as unknown as GatewayCheckoutResponse;
+      const newOrder: Order = {
+        id: orderData.orderId,
+        items,
+        total: orderData.totalAmount,
+        status: orderData.orderStatus as OrderStatus,
+        createdAt: orderData.createdAt,
+        updatedAt: orderData.createdAt // Gateway doesn't provide updatedAt
+      };
       
-      const result = await response.json();
-      
-      if (result.success) {
-        const newOrder: Order = {
-          id: result.orderId,
-          items,
-          total: result.totalAmount,
-          status: result.orderStatus as OrderStatus,
-          createdAt: result.createdAt,
-          updatedAt: result.createdAt
-        };
-        
-        return {
-          success: true,
-          data: newOrder,
-          message: result.message
-        };
-      } else {
-        return {
-          success: false,
-          data: null,
-          message: result.message
-        };
-      }
-    } catch (error) {
       return {
-        success: false,
-        data: null,
-        message: 'Failed to create order: ' + (error as Error).message
+        success: true,
+        data: newOrder,
+        message: response.message
       };
     }
+
+    return {
+      success: false,
+      data: null as any,
+      message: response.message || 'Checkout failed'
+    };
   },
 
-  async getOrders(): Promise<ApiResponse<Order[]>> {
-    await simulateDelay();
+  async getOrders(): Promise<ApiResponse<GatewayOrder[]>> {
+    const response = await makeRequest<BFFOrdersResponse>('/api/orders');
     
-    try {
-      const response = await fetch(`${API_BASE_URL}/api/gateway/orders`);
-      const result = await response.json();
-      
-      if (result.orders) {
-        return {
-          success: true,
-          data: result.orders,
-          message: 'Orders fetched successfully'
-        };
-      } else {
-        return {
-          success: true,
-          data: [],
-          message: 'No orders found'
-        };
-      }
-    } catch (error) {
+    if (response.success) {
       return {
-        success: false,
-        data: [],
-        message: 'Failed to fetch orders: ' + (error as Error).message
+        success: true,
+        data: response.data as unknown as GatewayOrder[],
+        message: response.message
       };
     }
-  },
-
-  async getOrderById(id: string): Promise<ApiResponse<Order | null>> {
-    await simulateDelay();
     
     return {
-      success: true,
+      success: false,
+      data: [],
+      message: response.message || 'Failed to fetch orders'
+    };
+  },
+
+  async getOrderById(id: string): Promise<ApiResponse<GatewayOrder | null>> {
+    const response = await makeRequest<BFFOrderDetailsResponse>(`/api/orders/${id}`);
+    
+    if (response.success) {
+      return {
+        success: true,
+        data: response.data as unknown as GatewayOrder,
+        message: response.message
+      };
+    }
+    
+    return {
+      success: false,
       data: null,
-      message: 'Order not found'
+      message: response.message || 'Failed to fetch order details'
     };
   }
 };
 
-// User API functions
+// User API functions - using mock data for now
 export const userApi = {
   async getCurrentUser(): Promise<ApiResponse<User | null>> {
-    await simulateDelay();
-    
+    // For now, return mock user data
+    // In the future, this can be routed to a user service via BFF
     const mockUser: User = {
       id: '1',
       name: 'John Doe',
