@@ -4,8 +4,10 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Next.js
-.next/
+# Next.js (exclude everything except standalone and static)
+.next/*
+!.next/standalone/
+!.next/static/
 out/
 
 # Production build
@@ -82,8 +84,10 @@ pids
 .cache
 .parcel-cache
 
-# next.js build output
-.next
+# next.js build output (exclude everything except standalone and static)
+.next/*
+!.next/standalone/
+!.next/static/
 
 # nuxt.js build output
 .nuxt

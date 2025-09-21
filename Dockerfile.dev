@@ -1,45 +1,33 @@
-# Optimized Development Dockerfile for Web Frontend
-FROM node:18-alpine AS base
+# Development Web Service - expects pre-built Next.js
+FROM node:18-alpine
 
-# Install dependencies only when needed
-FROM base AS deps
-RUN apk add --no-cache libc6-compat
+# Install debugging tools
+RUN apk add --no-cache netcat-openbsd procps
+
 WORKDIR /app
 
-# Install dependencies based on the preferred package manager
-COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
-RUN \
-  if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
-  elif [ -f package-lock.json ]; then npm ci; \
-  elif [ -f pnpm-lock.yaml ]; then yarn global add pnpm && pnpm i --frozen-lockfile; \
-  else echo "Lockfile not found." && exit 1; \
-  fi
-
-# Development image with all dependencies for hot reloading
-FROM base AS dev
-WORKDIR /app
-
-# Copy dependencies from deps stage
-COPY --from=deps /app/node_modules ./node_modules
-
-# Copy source code
-COPY . .
+# Copy pre-built Next.js application
+COPY .next/standalone/projects/foody-buddy-app/foodybuddy-web ./
+COPY .next/static ./.next/static
+COPY public ./public
 
 # Create non-root user
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
+RUN addgroup --system --gid 1001 nodejs && \
+    adduser --system --uid 1001 nextjs
 
-# Create .next directory and set permissions
-RUN mkdir -p /app/.next/cache /app/.next/trace
+# Set permissions
 RUN chown -R nextjs:nodejs /app
+
+# Switch to non-root user
 USER nextjs
 
-# Expose the port the app runs on
+# Expose port
 EXPOSE 3000
 
-# Set environment variable for development
+# Set environment variables
 ENV NODE_ENV=development
-ENV NEXT_TELEMETRY_DISABLED=1
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
 
-# Start the application in development mode
-CMD ["yarn", "dev"]
+# Start the application
+CMD ["node", "server.js"]
