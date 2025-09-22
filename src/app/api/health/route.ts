@@ -11,11 +11,16 @@ export async function GET() {
     })
 
     // Basic health check - you can add more sophisticated checks here
+    // For development containers, always return 'development' regardless of NODE_ENV
+    const isDevelopmentContainer = process.env.CONTAINER_ENV === 'development' || 
+                                   process.env.DOCKER_ENV === 'development' ||
+                                   process.env.NODE_ENV === 'development'
+    
     const healthData = {
       status: 'healthy',
       timestamp: new Date().toISOString(),
       uptime: process.uptime(),
-      environment: process.env.NODE_ENV || 'development',
+      environment: isDevelopmentContainer ? 'development' : (process.env.NODE_ENV || 'development'),
       version: process.env.npm_package_version || '1.0.0',
     }
 
