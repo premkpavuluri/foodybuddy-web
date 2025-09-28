@@ -7,15 +7,19 @@ import Button from '@/components/ui/Button';
 const HeroSection: React.FC = () => {
   return (
     <div className="relative rounded-2xl overflow-hidden mb-8">
-      {/* Background image with overlay */}
+      {/* Background image with subtle overlay */}
       <div 
         className="relative h-96 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')`
+          backgroundImage: `url('/images/hero-kitchen.jpg')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center bottom',
+          backgroundRepeat: 'no-repeat',
+          backgroundAttachment: 'scroll'
         }}
       >
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+        {/* Subtle overlay for better text readability */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-transparent"></div>
         
         {/* Content */}
         <div className="relative h-full flex items-center">
