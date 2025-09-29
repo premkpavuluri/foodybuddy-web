@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <!-- Exact scaled version of the original logo -->
+  
+  <!-- Background circle -->
+  <circle cx="16" cy="16" r="16" fill="#ea580c"/>
+  
+  <!-- Scaled down paths from original logo (zoomed out a bit) -->
+  
+  <!-- Main food element (scaled from original) -->
+  <path d="M13.2,26.8c0.4,0.1,0.8,0.1,1.3,0.1s1,0,1.5-0.1l0.2-6.9c-0.4-0.2-0.8-0.5-1.2-0.8c-0.6-0.7-1-1.6-0.9-2.6l0.4-4.7c-0.4,0.6-1,1-1.7,1.3L13.2,26.8z" fill="#ffffff" stroke="#ffffff" stroke-width="0.2"/>
+  
+  <!-- Right side element (scaled) -->
+  <path d="M23.3,3.1v3c2.9,2.5,4.7,6.2,4.7,10.2c0,4.1-1.8,7.8-4.7,10.2v3c4.3-2.8,7.1-7.7,7.1-13.2C30.4,10.8,27.6,5.9,23.3,3.1z" fill="#ffffff" stroke="#ffffff" stroke-width="0.2"/>
+  
+  <!-- Top element (scaled) -->
+  <path d="M15,2v0.8c0.1,0,0.1,0,0.3,0c0.3-0.9,0.8-1.7,1.6-2.3C16.2,0.4,15.3,0.3,14.5,0.3c-0.1,0-0.2,0-0.3,0C14.7,0.8,15,1.4,15,2z" fill="#ffffff" stroke="#ffffff" stroke-width="0.2"/>
+  
+  <!-- Center food item (scaled) -->
+  <path d="M23.3,9v1.3V19.7v4c1.7-2,2.7-4.5,2.7-7.4C25.6,14.6,24.6,12,23.3,9z" fill="#ffffff" stroke="#ffffff" stroke-width="0.2"/>
+  
+  <!-- Left side element (scaled) -->
+  <path d="M6.3,11c-0.8,1.6-1.3,3.4-1.3,5.3c0,3,1.2,5.8,3.1,7.9l0.4-10.4C7.3,13.4,6.5,12.3,6.3,11z" fill="#ffffff" stroke="#ffffff" stroke-width="0.2"/>
+  
+  <!-- Bottom element (scaled) -->
+  <path d="M15.9,29.1v-0.2c-0.5,0.1-0.9,0.1-1.4,0.1c-0.4,0-0.8,0-1.3-0.1v0.2c0,0.8-0.3,1.6-0.8,2.1c0.6,0.1,1.3,0.1,2,0.1c0.7,0,1.4-0.1,2.1-0.1C16.2,30.6,15.9,29.9,15.9,29.1z" fill="#ffffff" stroke="#ffffff" stroke-width="0.2"/>
+  
+  <!-- Additional elements (scaled) -->
+  <path d="M3.9,16.4c0-3.4,1.3-6.6,3.4-8.9v-3.4c-3.5,2.9-5.8,7.4-5.8,12.3c0,5.7,3,10.7,7.4,13.5l0.1-2.9C6,24.5,3.9,20.6,3.9,16.4z" fill="#ffffff" stroke="#ffffff" stroke-width="0.2"/>
+  
+  <!-- Main utensil element (scaled) -->
+  <path d="M20,1c-1.8,0-3.4,1.4-3.5,3.3l-0.9,13.2c-0.1,0.6,0.1,1.1,0.6,1.6c0.4,0.4,0.9,0.7,1.6,0.7h0.1l-0.4,10.4c0,0.4,0.1,0.8,0.5,1.2c0.3,0.3,0.7,0.5,1.2,0.5h1.2c0.9,0,1.6-0.8,1.6-1.6V19.7V10.3V2.8C21.8,1.8,20.9,1,20,1z" fill="#ffffff" stroke="#ffffff" stroke-width="0.2"/>
+  
+  <!-- Fork element (scaled) -->
+  <path d="M11.4,12.6h0.4c1.1,0,2-0.8,2-1.9V2c0-0.4-0.3-0.6-0.6-0.6h-0.1c-0.4,0-0.6,0.3-0.6,0.6v5.7c0,0.5-0.4,0.9-0.9,0.9h-0.1c-0.5,0-0.9-0.4-0.9-0.9V2c0-0.4-0.3-0.6-0.6-0.6h-0.1c-0.4,0-0.6,0.3-0.6,0.6v8.7c0,1.1,0.8,1.9,1.9,1.9h0.3l-0.6,17.5c0,0.4,0.1,0.8,0.4,1.2c0.3,0.3,0.7,0.5,1.1,0.5h1.3c0.4,0,0.8-0.2,1.1-0.5c0.3-0.3,0.5-0.8,0.4-1.2L11.4,12.6z" fill="#ffffff" stroke="#ffffff" stroke-width="0.2"/>
+</svg>
