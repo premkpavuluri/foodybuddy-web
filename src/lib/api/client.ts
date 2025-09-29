@@ -3,7 +3,6 @@
 
 import { 
   ApiResponse, 
-  PaginatedResponse, 
   MenuItem, 
   Order, 
   OrderStatus, 
@@ -17,66 +16,6 @@ import {
   GatewayOrderDetailsResponse
 } from '@/types';
 
-// Mock data for simulation
-const mockMenuItems: MenuItem[] = [
-  {
-    id: '1',
-    name: 'Margherita Pizza',
-    category: 'Pizza',
-    price: 12.99,
-    description: 'Classic tomato and mozzarella with fresh basil',
-    image: '/images/margherita-pizza.jpg',
-    isAvailable: true
-  },
-  {
-    id: '2',
-    name: 'Pepperoni Pizza',
-    category: 'Pizza',
-    price: 14.99,
-    description: 'Pepperoni and mozzarella on our signature crust',
-    image: '/images/pepperoni-pizza.jpg',
-    isAvailable: true
-  },
-  {
-    id: '3',
-    name: 'Classic Burger',
-    category: 'Burger',
-    price: 9.99,
-    description: 'Beef patty with lettuce, tomato, and our special sauce',
-    image: '/images/classic-burger.jpg',
-    isAvailable: true
-  },
-  {
-    id: '4',
-    name: 'Pasta Primavera',
-    category: 'Pasta',
-    price: 11.49,
-    description: 'Fresh vegetables with penne in a light cream sauce',
-    image: '/images/pasta-primavera.jpg',
-    isAvailable: true
-  },
-  {
-    id: '5',
-    name: 'Caesar Salad',
-    category: 'Salad',
-    price: 8.99,
-    description: 'Fresh romaine lettuce with caesar dressing and croutons',
-    image: '/images/caesar-salad.jpg',
-    isAvailable: true
-  },
-  {
-    id: '6',
-    name: 'Chocolate Cake',
-    category: 'Dessert',
-    price: 6.99,
-    description: 'Rich chocolate cake with chocolate ganache',
-    image: '/images/chocolate-cake.jpg',
-    isAvailable: true
-  }
-];
-
-// Simulate API delay
-const simulateDelay = (ms: number = 500) => new Promise(resolve => setTimeout(resolve, ms));
 
 // Generic request function for BFF API routes
 const makeRequest = async <T>(
@@ -132,9 +71,6 @@ export const menuApi = {
     return makeRequest<MenuItem[]>(endpoint);
   },
 
-  async getMenuItemById(id: string): Promise<ApiResponse<MenuItem | null>> {
-    return makeRequest<MenuItem | null>(`/api/menu/${id}`);
-  },
 
   async searchMenuItems(query: string): Promise<ApiResponse<MenuItem[]>> {
     const params = new URLSearchParams();
@@ -253,23 +189,3 @@ export const userApi = {
   }
 };
 
-// Generic API functions
-export const apiClient = {
-  async get<T>(endpoint: string, params?: Record<string, string>): Promise<ApiResponse<T>> {
-    return makeRequest<T>(endpoint, { method: 'GET' });
-  },
-
-  async post<T>(endpoint: string, data?: any): Promise<ApiResponse<T>> {
-    return makeRequest<T>(endpoint, { method: 'POST' });
-  },
-
-  async put<T>(endpoint: string, data?: any): Promise<ApiResponse<T>> {
-    return makeRequest<T>(endpoint, { method: 'PUT' });
-  },
-
-  async delete<T>(endpoint: string): Promise<ApiResponse<T>> {
-    return makeRequest<T>(endpoint, { method: 'DELETE' });
-  }
-};
-
-export default apiClient;
