@@ -253,6 +253,103 @@ export const iconRegistry = {
       />
     </svg>
   ),
+
+  // Order status icons
+  pending: (props: React.SVGProps<SVGSVGElement>) => (
+    <svg
+      {...props}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/>
+      <path d="M12 6v6l4 2" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+    </svg>
+  ),
+
+  confirmed: (props: React.SVGProps<SVGSVGElement>) => (
+    <svg
+      {...props}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/>
+    </svg>
+  ),
+
+  preparing: (props: React.SVGProps<SVGSVGElement>) => (
+    <svg
+      {...props}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+      <path d="M3 3v5h5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M12 7v5l4 2" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+    </svg>
+  ),
+
+  ready: (props: React.SVGProps<SVGSVGElement>) => (
+    <svg
+      {...props}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9c4.97 0 9 4.03 9 9z" stroke="currentColor" strokeWidth="2"/>
+    </svg>
+  ),
+
+  'out-for-delivery': (props: React.SVGProps<SVGSVGElement>) => (
+    <svg
+      {...props}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="M1 3h15v13H4l-3-3V3z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <circle cx="5.5" cy="18.5" r="2.5" stroke="currentColor" strokeWidth="2"/>
+      <circle cx="18.5" cy="18.5" r="2.5" stroke="currentColor" strokeWidth="2"/>
+      <path d="M15.5 8.5h3l3 5v5h-2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  ),
+
+  delivered: (props: React.SVGProps<SVGSVGElement>) => (
+    <svg
+      {...props}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9c4.97 0 9 4.03 9 9z" stroke="currentColor" strokeWidth="2"/>
+      <path d="M12 2v4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+      <path d="M12 18v4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+      <path d="M4.93 4.93l2.83 2.83" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+      <path d="M16.24 16.24l2.83 2.83" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+      <path d="M2 12h4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+      <path d="M18 12h4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+      <path d="M4.93 19.07l2.83-2.83" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+      <path d="M16.24 7.76l2.83-2.83" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+    </svg>
+  ),
+
+  cancelled: (props: React.SVGProps<SVGSVGElement>) => (
+    <svg
+      {...props}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/>
+      <path d="M15 9l-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M9 9l6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  ),
 } as const;
 
 // Type for available icon names

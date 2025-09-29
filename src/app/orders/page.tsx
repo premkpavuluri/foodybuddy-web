@@ -5,6 +5,7 @@ import Layout from '@/components/layout/Layout';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
+import Icon from '@/components/ui/Icon';
 import { GatewayOrder } from '@/types';
 
 export default function Orders() {
@@ -23,7 +24,16 @@ export default function Orders() {
       const data = await response.json();
       
       if (data.success && data.data) {
-        setOrders(data.data);
+        // Sort orders by creation date (most recent first)
+        const sortedOrders = data.data.sort((a: GatewayOrder, b: GatewayOrder) => {
+          const dateA = new Date(a.createdAt).getTime();
+          const dateB = new Date(b.createdAt).getTime();
+          console.log(`Order ${a.orderId}: ${a.createdAt} (${dateA})`);
+          console.log(`Order ${b.orderId}: ${b.createdAt} (${dateB})`);
+          return dateB - dateA; // Most recent first
+        });
+        console.log('Sorted orders:', sortedOrders.map(o => ({ id: o.orderId, date: o.createdAt })));
+        setOrders(sortedOrders);
       } else {
         setOrders([]);
       }
@@ -40,15 +50,15 @@ export default function Orders() {
       case 'PENDING':
         return 'bg-yellow-100 text-yellow-800';
       case 'CONFIRMED':
-        return 'bg-blue-100 text-blue-800';
+        return 'bg-green-100 text-green-800';
       case 'PREPARING':
         return 'bg-orange-100 text-orange-800';
       case 'READY':
-        return 'bg-green-100 text-green-800';
+        return 'bg-emerald-100 text-emerald-800';
       case 'OUT_FOR_DELIVERY':
         return 'bg-purple-100 text-purple-800';
       case 'DELIVERED':
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-green-200 text-green-900';
       case 'CANCELLED':
         return 'bg-red-100 text-red-800';
       default:
@@ -59,21 +69,42 @@ export default function Orders() {
   const getStatusIcon = (status: string) => {
     switch (status) {
       case 'PENDING':
-        return '⏳';
+        return 'pending';
       case 'CONFIRMED':
-        return '✅';
+        return 'confirmed';
       case 'PREPARING':
-        return '👨‍🍳';
+        return 'preparing';
       case 'READY':
-        return '🍽️';
+        return 'ready';
       case 'OUT_FOR_DELIVERY':
-        return '🚚';
+        return 'out-for-delivery';
       case 'DELIVERED':
-        return '📦';
+        return 'delivered';
       case 'CANCELLED':
-        return '❌';
+        return 'cancelled';
       default:
-        return '📋';
+        return 'pending';
+    }
+  };
+
+  const getStatusIconColor = (status: string) => {
+    switch (status) {
+      case 'PENDING':
+        return '#f59e0b'; // yellow-500
+      case 'CONFIRMED':
+        return '#22c55e'; // green-500
+      case 'PREPARING':
+        return '#f97316'; // orange-500
+      case 'READY':
+        return '#10b981'; // emerald-500
+      case 'OUT_FOR_DELIVERY':
+        return '#8b5cf6'; // violet-500
+      case 'DELIVERED':
+        return '#16a34a'; // green-600
+      case 'CANCELLED':
+        return '#ef4444'; // red-500
+      default:
+        return '#6b7280'; // gray-500
     }
   };
 
@@ -150,7 +181,12 @@ export default function Orders() {
                 </div>
                 <div className="text-right">
                   <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(order.status)}`}>
-                    <span className="mr-1">{getStatusIcon(order.status)}</span>
+                    <Icon 
+                      name={getStatusIcon(order.status) as any} 
+                      size={14} 
+                      color={getStatusIconColor(order.status)}
+                      className="mr-1"
+                    />
                     {order.status}
                   </span>
                   <p className="text-lg font-semibold text-gray-800 mt-1">
