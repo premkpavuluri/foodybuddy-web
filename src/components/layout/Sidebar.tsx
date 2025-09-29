@@ -18,7 +18,7 @@ const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
   const isActive = (path: string) => pathname === path;
 
   return (
-    <div className={`w-64 bg-orange-50 min-h-screen flex flex-col ${className}`}>
+    <div className={`w-64 bg-white min-h-screen flex flex-col shadow-sm ${className}`}>
       {/* Logo */}
       <div className="p-6">
         <div className="flex items-center space-x-3">
