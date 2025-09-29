@@ -80,7 +80,7 @@ export default function Orders() {
   if (loading) {
     return (
       <Layout>
-        <div className="max-w-4xl mx-auto">
+        <div className="w-full max-w-none">
           <h1 className="text-3xl font-bold text-gray-800 mb-8">Your Orders</h1>
           <div className="flex justify-center items-center py-16">
             <LoadingSpinner size="lg" />
@@ -93,7 +93,7 @@ export default function Orders() {
   if (error) {
     return (
       <Layout>
-        <div className="max-w-4xl mx-auto">
+        <div className="w-full max-w-none">
           <h1 className="text-3xl font-bold text-gray-800 mb-8">Your Orders</h1>
           <div className="text-center py-16">
             <div className="text-6xl mb-4">⚠️</div>
@@ -109,7 +109,7 @@ export default function Orders() {
   if (orders.length === 0) {
     return (
       <Layout>
-        <div className="max-w-4xl mx-auto">
+        <div className="w-full max-w-none">
           <h1 className="text-3xl font-bold text-gray-800 mb-8">Your Orders</h1>
           <div className="text-center py-16">
             <div className="text-6xl mb-4">📋</div>
@@ -128,7 +128,7 @@ export default function Orders() {
 
   return (
     <Layout>
-      <div className="max-w-4xl mx-auto">
+      <div className="w-full max-w-none">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold text-gray-800">Your Orders</h1>
           <Button onClick={fetchOrders} variant="outline">

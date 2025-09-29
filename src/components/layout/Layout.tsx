@@ -20,7 +20,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         <Header />
         
         {/* Page content */}
-        <main className="flex-1 p-6">
+        <main className="flex-1 p-3 md:p-4 lg:p-6">
           {children}
         </main>
       </div>

@@ -14,7 +14,7 @@ const Header: React.FC<HeaderProps> = ({ className = '' }) => {
   const { toggleSidebar } = useSidebar();
 
   return (
-    <header className={`bg-gray-50/70 px-6 py-4 border-b border-gray-200/80 ${className}`}>
+    <header className={`bg-gray-50/70 px-3 md:px-4 lg:px-6 py-3 md:py-4 border-b border-gray-200/80 ${className}`}>
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-4">
           <button

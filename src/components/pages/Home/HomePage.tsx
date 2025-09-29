@@ -7,7 +7,7 @@ import FeaturedItems from './FeaturedItems';
 
 const HomePage: React.FC = () => {
   return (
-    <div className="max-w-7xl mx-auto">
+    <div className="w-full max-w-none">
       <HeroSection />
       <FeatureCards />
       <FeaturedItems />
