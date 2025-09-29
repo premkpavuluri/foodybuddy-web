@@ -22,7 +22,7 @@ const Header: React.FC<HeaderProps> = ({ className = '' }) => {
             className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
             aria-label="Toggle sidebar"
           >
-            <Icon name="sidebar" size={20} color="#374151" />
+            <Icon name="sidebar" size={20} color="#f97316" />
           </button>
         </div>
         
