@@ -42,25 +42,23 @@ export const FEATURE_CARDS = [
   }
 ] as const;
 
-import { HomeIcon, MenuIcon, CartIcon, ProfileIcon, OrdersIcon, SettingsIcon } from '@/assets/icons';
-
 export const NAVIGATION_ITEMS = [
   {
     id: 'home',
     label: 'Home',
-    icon: HomeIcon,
+    icon: 'home',
     path: ROUTES.HOME
   },
   {
     id: 'menu',
     label: 'Menu',
-    icon: MenuIcon,
+    icon: 'menu',
     path: ROUTES.MENU
   },
   {
     id: 'cart',
     label: 'Cart',
-    icon: CartIcon,
+    icon: 'cart',
     path: ROUTES.CART
   }
 ] as const;
@@ -69,19 +67,19 @@ export const ACCOUNT_ITEMS = [
   {
     id: 'profile',
     label: 'Profile',
-    icon: ProfileIcon,
+    icon: 'profile',
     path: ROUTES.PROFILE
   },
   {
     id: 'orders',
     label: 'Orders',
-    icon: OrdersIcon,
+    icon: 'orders',
     path: ROUTES.ORDERS
   },
   {
     id: 'settings',
     label: 'Settings',
-    icon: SettingsIcon,
+    icon: 'settings',
     path: ROUTES.SETTINGS
   }
 ] as const;
