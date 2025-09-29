@@ -1,17 +1,29 @@
+'use client';
+
 // Header component
 
 import React from 'react';
+import Icon from '@/components/ui/Icon';
+import { useSidebar } from '@/contexts/SidebarContext';
 
 interface HeaderProps {
   className?: string;
 }
 
 const Header: React.FC<HeaderProps> = ({ className = '' }) => {
+  const { toggleSidebar } = useSidebar();
+
   return (
     <header className={`bg-gray-50/70 px-6 py-4 border-b border-gray-200/80 ${className}`}>
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-4">
-          {/* Mobile menu button could go here */}
+          <button
+            onClick={toggleSidebar}
+            className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+            aria-label="Toggle sidebar"
+          >
+            <Icon name="sidebar" size={20} color="#374151" />
+          </button>
         </div>
         
         <div className="flex items-center space-x-4">
