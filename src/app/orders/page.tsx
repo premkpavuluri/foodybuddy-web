@@ -50,7 +50,7 @@ export default function Orders() {
       case 'PENDING':
         return 'bg-yellow-100 text-yellow-800';
       case 'CONFIRMED':
-        return 'bg-green-100 text-green-800';
+        return 'bg-blue-100 text-blue-800';
       case 'PREPARING':
         return 'bg-orange-100 text-orange-800';
       case 'READY':
@@ -58,7 +58,7 @@ export default function Orders() {
       case 'OUT_FOR_DELIVERY':
         return 'bg-purple-100 text-purple-800';
       case 'DELIVERED':
-        return 'bg-green-200 text-green-900';
+        return 'bg-emerald-200 text-emerald-900';
       case 'CANCELLED':
         return 'bg-red-100 text-red-800';
       default:
@@ -92,7 +92,7 @@ export default function Orders() {
       case 'PENDING':
         return '#f59e0b'; // yellow-500
       case 'CONFIRMED':
-        return '#22c55e'; // green-500
+        return '#3b82f6'; // blue-500
       case 'PREPARING':
         return '#f97316'; // orange-500
       case 'READY':
@@ -100,7 +100,7 @@ export default function Orders() {
       case 'OUT_FOR_DELIVERY':
         return '#8b5cf6'; // violet-500
       case 'DELIVERED':
-        return '#16a34a'; // green-600
+        return '#059669'; // emerald-600
       case 'CANCELLED':
         return '#ef4444'; // red-500
       default:

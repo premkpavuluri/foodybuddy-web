@@ -326,15 +326,7 @@ export const iconRegistry = {
       xmlns="http://www.w3.org/2000/svg"
     >
       <path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-      <path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9c4.97 0 9 4.03 9 9z" stroke="currentColor" strokeWidth="2"/>
-      <path d="M12 2v4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-      <path d="M12 18v4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-      <path d="M4.93 4.93l2.83 2.83" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-      <path d="M16.24 16.24l2.83 2.83" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-      <path d="M2 12h4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-      <path d="M18 12h4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-      <path d="M4.93 19.07l2.83-2.83" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-      <path d="M16.24 7.76l2.83-2.83" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+      <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/>
     </svg>
   ),
 

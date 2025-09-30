@@ -241,7 +241,7 @@ export const orderUtils = {
       [OrderStatus.CONFIRMED]: 'text-blue-600 bg-blue-100',
       [OrderStatus.PREPARING]: 'text-orange-600 bg-orange-100',
       [OrderStatus.READY]: 'text-green-600 bg-green-100',
-      [OrderStatus.DELIVERED]: 'text-green-800 bg-green-200',
+      [OrderStatus.DELIVERED]: 'text-emerald-800 bg-emerald-200',
       [OrderStatus.CANCELLED]: 'text-red-600 bg-red-100'
     };
     return colors[status] || 'text-gray-600 bg-gray-100';
