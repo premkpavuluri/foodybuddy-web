@@ -15,6 +15,7 @@ export default function Orders() {
   const [expandedOrders, setExpandedOrders] = useState<Set<string>>(new Set());
   const [expandedPayment, setExpandedPayment] = useState<Set<string>>(new Set());
   const [expandedAddress, setExpandedAddress] = useState<Set<string>>(new Set());
+  const [copiedOrderId, setCopiedOrderId] = useState<string | null>(null);
 
   useEffect(() => {
     fetchOrders();
@@ -35,7 +36,7 @@ export default function Orders() {
           console.log(`Order ${b.orderId}: ${b.createdAt} (${dateB})`);
           return dateB - dateA; // Most recent first
         });
-        console.log('Sorted orders:', sortedOrders.map(o => ({ id: o.orderId, date: o.createdAt })));
+        console.log('Sorted orders:', sortedOrders.map((o: GatewayOrder) => ({ id: o.orderId, date: o.createdAt })));
         setOrders(sortedOrders);
       } else {
         setOrders([]);
@@ -85,6 +86,17 @@ export default function Orders() {
       newExpanded.add(orderId);
     }
     setExpandedAddress(newExpanded);
+  };
+
+  const copyOrderId = async (orderId: string) => {
+    try {
+      await navigator.clipboard.writeText(orderId);
+      setCopiedOrderId(orderId);
+      // Reset the copied state after 2 seconds
+      setTimeout(() => setCopiedOrderId(null), 2000);
+    } catch (err) {
+      console.error('Failed to copy order ID:', err);
+    }
   };
 
   const getStatusColor = (status: string) => {
@@ -266,6 +278,36 @@ export default function Orders() {
                       <p className="text-sm font-bold text-gray-900 group-hover:text-orange-600 transition-colors">
                         {order.orderId}
                       </p>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          copyOrderId(order.orderId);
+                        }}
+                        className="ml-2 p-1 rounded hover:bg-gray-100 transition-colors duration-200 group/copy"
+                        title="Copy Order ID"
+                      >
+                        <div className="relative w-4 h-4 flex items-center justify-center">
+                          <Icon 
+                            name="copy" 
+                            size={14} 
+                            className={`absolute transition-all duration-300 ${
+                              copiedOrderId === order.orderId 
+                                ? 'opacity-0 scale-75' 
+                                : 'opacity-100 scale-100 text-gray-400 group-hover/copy:text-gray-600'
+                            }`}
+                          />
+                          <Icon 
+                            name="check" 
+                            size={14} 
+                            color={copiedOrderId === order.orderId ? '#16a34a' : '#9ca3af'}
+                            className={`absolute transition-all duration-300 ${
+                              copiedOrderId === order.orderId 
+                                ? 'opacity-100 scale-100' 
+                                : 'opacity-0 scale-75'
+                            }`}
+                          />
+                        </div>
+                      </button>
                     </div>
                     <p className="text-sm text-gray-500">
                       {new Date(order.createdAt).toLocaleDateString('en-GB', { 
