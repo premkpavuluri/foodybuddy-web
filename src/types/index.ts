@@ -100,6 +100,16 @@ export interface GatewayOrder {
   totalAmount: number;
   createdAt: string;
   updatedAt: string;
+  items?: OrderItem[];
+  total?: number;
+}
+
+export interface OrderItem {
+  id: number;
+  itemId: string;
+  itemName: string;
+  quantity: number;
+  price: number;
 }
 
 export interface GatewayOrdersResponse {
