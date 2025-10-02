@@ -17,7 +17,7 @@ export const useMenuStore = create<MenuStore>()(
     (set, get) => ({
       // Initial state
       items: [],
-      categories: ['All', 'Pizza', 'Burger', 'Pasta', 'Salad', 'Dessert'],
+      categories: ['All', 'Pizza', 'Burger', 'Pasta', 'Salad', 'Dessert', 'Beverages'],
       selectedCategory: 'All',
       searchQuery: '',
       filteredItems: [],
@@ -207,6 +207,7 @@ export const menuUtils = {
       'Pasta': '🍝',
       'Salad': '🥗',
       'Dessert': '🍰',
+      'Beverages': '🥤',
       'All': '🍽️'
     };
     return icons[category] || '🍽️';

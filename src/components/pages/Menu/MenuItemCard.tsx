@@ -21,8 +21,21 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({ item }) => {
 
   return (
     <Card hover className="overflow-hidden">
-      <div className="w-full h-48 bg-gray-200 rounded-lg flex items-center justify-center mb-4">
-        <div className="text-gray-400 text-4xl">🍽️</div>
+      <div className="w-full h-48 bg-gray-200 rounded-lg overflow-hidden mb-4">
+        <img 
+          src={item.image} 
+          alt={item.name}
+          className="w-full h-full object-cover"
+          onError={(e) => {
+            // Fallback to emoji if image fails to load
+            const target = e.target as HTMLImageElement;
+            target.style.display = 'none';
+            const parent = target.parentElement;
+            if (parent) {
+              parent.innerHTML = '<div class="w-full h-full flex items-center justify-center text-gray-400 text-4xl">🍽️</div>';
+            }
+          }}
+        />
       </div>
       
       <div className="mb-4">
