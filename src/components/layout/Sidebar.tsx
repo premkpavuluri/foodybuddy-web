@@ -26,21 +26,21 @@ const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
   };
 
   return (
-    <div className={`${isOpen ? 'w-64' : 'w-16'} bg-white min-h-screen flex flex-col shadow-sm transition-all duration-300 ${className}`}>
+    <div className={`${isOpen ? 'w-64' : 'w-16'} bg-white min-h-screen flex flex-col shadow-sm transition-all duration-500 ease-in-out ${className}`}>
       {/* Logo */}
-      <div className={`${isOpen ? 'p-6' : 'p-3'}`}>
+      <div className={`${isOpen ? 'p-6' : 'p-3'} transition-all duration-500 ease-in-out`}>
         <div className="flex items-center justify-center">
           <div className="w-9 h-9 bg-orange-500 rounded-full flex items-center justify-center">
             <Icon name="logo" size={20} color="white" />
           </div>
           {isOpen && (
-            <h1 className="ml-3 text-xl font-bold text-gray-800">Foody Buddy</h1>
+            <h1 className="ml-3 text-xl font-bold text-gray-800 transition-opacity duration-300 ease-in-out">Foody Buddy</h1>
           )}
         </div>
       </div>
 
       {/* Main Navigation */}
-      <div className={`flex-1 ${isOpen ? 'p-4' : 'p-2'}`}>
+      <div className={`flex-1 ${isOpen ? 'p-4' : 'p-2'} transition-all duration-500 ease-in-out`}>
         <div className="mb-8">
           {isOpen && (
             <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">
@@ -57,7 +57,7 @@ const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
               >
                 <Icon name={item.icon} size={22} color="#f97316" />
                 {isOpen && (
-                  <span className="font-medium">{item.label}</span>
+                  <span className="font-medium transition-opacity duration-300 ease-in-out">{item.label}</span>
                 )}
               </div>
             ))}
@@ -85,7 +85,7 @@ const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
                     <Icon name={item.icon} size={iconSize} color="#f97316" />
                   </div>
                   {isOpen && (
-                    <span className="font-medium">{item.label}</span>
+                    <span className="font-medium transition-opacity duration-300 ease-in-out">{item.label}</span>
                   )}
                 </div>
               );
